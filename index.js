@@ -7,13 +7,11 @@ console.log("\n"+" WELCOME TO HANGMAN !\n\n")
 
 var choices = ["dog", "cat", "giraffe", "elephant"];
 
-var current;
-var correct; 
+
 
 function chooseQuestion() {
     var indexChoice = Math.floor(Math.random() * choices.length)
-    current = choices[indexChoice];
-    correct = current.split("").join(" ")
+    var current = choices[indexChoice];
     var choice = new Word(current);
     choice.display()
     getUserGuess(choice)
