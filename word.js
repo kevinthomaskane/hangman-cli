@@ -1,36 +1,42 @@
 var Letter = require("./letter.js")
 
 
-function Word(){
-   
-    this.spaces = "";
-    this.arrayOfLetters = [];
-    this.letters = function(string){
-        var array = string.split("");
-        for (let i = 0; i < array.length; i++){
-        this.arrayOfLetters.push(new Letter(array[i]))
-        }
-        return this.arrayOfLetters
-    }
-    this.writeIt = function(string){
-        this.letters(string)
-        for (let i = 0; i< this.arrayOfLetters.length; i++){
-            this.spaces += " " + this.arrayOfLetters[i].funky()
-        }
-        return this.spaces       
+function Word(string) {
+    var array = string.split("")
+    var letters = [];
+    var spaces = "";
+    array.forEach(function (char) {
+        letters.push(new Letter(char));
+    });
+    this.answered = false;
+    this.guesses = letters.length;
+    this.letterInWord = function (userGuess) {
+        this.guesses--;
+        this.answered = letters.forEach(function (letter) {
+            if (userGuess === letter.name) {
+                letter.answered = true;
+            }
+            return letter.answered;
+        });
     }
 
-    this.check = function(string){
-        this.letters(string)
-        for (let i = 0; i < this.arrayOfLetters.length; i++){
-            this.arrayOfLetters[i].checker();
-        }
-        this.writeIt(string)
+    this.display = function () {
+        var str = '';
+        letters.forEach(function (letter) {
+            str += " " + letter.funky();
+        });
+        console.log(str + '    Guesses remaining:' + this.guesses);
     }
+
+
 }
 
-var random = new Word();
 
-// console.log(random.writeIt("potato"))
+
+var random = new Word("potato");
+var letterP = new Letter("p")
+
+
+
 
 module.exports = Word;

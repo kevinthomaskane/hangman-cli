@@ -1,11 +1,11 @@
 
 
-function Letter(letter){
-  this.letter = letter.toString();
+function Letter(char){
+  this.name = char;
   this.guessed = false;
   this.funky = function(){
     if (this.guessed === true){
-      return this.letter;
+      return this.name;
     }
     else{
       return "_"
@@ -21,5 +21,9 @@ function Letter(letter){
 }
 
 var random = new Letter("A")
+random.guessed = true;
+var Other = new Letter("B")
+
+
 
 module.exports = Letter;

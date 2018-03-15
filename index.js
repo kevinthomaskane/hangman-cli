@@ -1,46 +1,52 @@
 var inquirer = require("inquirer");
 var Word = require("./word.js")
+var Letter = require("./letter.js")
 
 
 
 var choices = ["dog", "cat", "giraffe", "elephant"];
-var choice;
-var current;
-var choiceLetters;
-var guesses;
-var spaces;
+// var choice;
+// var current;
+
 
 function chooseQuestion() {
-    var indexChoice = Math.floor(Math.random() * 4 + 1)
-    current = choices[indexChoice];
-    choice = new Word();
-    guesses = choice.arrayOfLetters.length
-    choiceLetters = choice.letters(current);
-    spaces = choice.writeIt(current)
+    var indexChoice = Math.floor(Math.random() * choices.length)
+    var current = choices[indexChoice];
+    var choice = new Word(current);
+    choice.display()
+    getUserGuess(choice)
 }
 
 chooseQuestion()
 
-ask();
+function getUserGuess(choice){
+	inquirer.prompt([{
+					 name: "letter",
+					 message: "Enter a letter: ",
+					//  validate : function(userInput){
+					//  		return userInput
+					// 	}
+					}])
 
-function ask() {
-    if (guesses >= 0) {
-        console.log(choiceLetters)
-        inquirer.prompt([
-            {
-                name: "guess",
-                message: choice.writeIt(current)
-            },
-console.log(choice)
-        ]).then(function (answer) {
-            var guessed = new Letter(answer.guess)
-            for (let i = 0; i < choiceLetters.length; i++) {
-                if (choiceLetters.letter === answer.guess) {
-                    guessed.guessed = true;
-                    
-                }
-            }
-            ask();
-        })
-    }
+	.then(function(guess){
+		choice.letterInWord(guess.letter);
+		choice.display();
+
+		if(!choice.answered){
+			if(choice.guesses > 0){
+				getUserGuess(choice);
+			}else{
+				
+				console.log("\n"+"                   Oops ! You ran out of your guesses !\n\n");
+				chooseQuestion();
+			}
+			
+		}else if(choice.answered){
+		
+			console.log("\n"+"                   Congratulations ! You have guessed it !\n\n");
+			chooseQuestion();
+		}
+	});
 }
+
+
