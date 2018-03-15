@@ -11,19 +11,6 @@ function Letter(char){
       return "_"
     }
   }
-
-  this.checker = function(letter){
-    if (this.letter){
-      this.guessed = true;
-    }
-  }
-  
 }
-
-var random = new Letter("A")
-random.guessed = true;
-var Other = new Letter("B")
-
-
 
 module.exports = Letter;
