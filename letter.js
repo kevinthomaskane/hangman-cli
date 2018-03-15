@@ -1,7 +1,7 @@
 var inquirer = require("inquirer")
 
 function Letter(letter){
-  this.letter = letter;
+  this.letter = letter.toString();
   this.guessed = false;
   this.funky = function(){
     if (this.guessed === true){
@@ -20,6 +20,6 @@ function Letter(letter){
   
 }
 
-var A = new Letter("A")
-
+var random = new Letter("A")
+console.log(random.letter)
 module.exports = Letter;
