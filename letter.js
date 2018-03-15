@@ -1,4 +1,4 @@
-var inquirer = require("inquirer")
+
 
 function Letter(letter){
   this.letter = letter.toString();
@@ -21,5 +21,5 @@ function Letter(letter){
 }
 
 var random = new Letter("A")
-console.log(random.letter)
+
 module.exports = Letter;

@@ -1,9 +1,9 @@
 var Letter = require("./letter.js")
 
 
-function Word(string){
-    this.answer = string;
-    this.spaces = " ";
+function Word(){
+   
+    this.spaces = "";
     this.arrayOfLetters = [];
     this.letters = function(string){
         var array = string.split("");
@@ -29,8 +29,8 @@ function Word(string){
     }
 }
 
-var random = new Word("potato");
+var random = new Word();
 
-random.writeIt("potato")
+// console.log(random.writeIt("potato"))
 
 module.exports = Word;
