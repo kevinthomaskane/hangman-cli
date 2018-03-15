@@ -11,21 +11,33 @@ function Word(string) {
     this.answered = false;
     this.guesses = letters.length;
     this.letterInWord = function (userGuess) {
-        this.guesses--;
-        this.answered = letters.forEach(function (letter) {
+        letters.forEach(function (letter) {
             if (userGuess === letter.name) {
-                letter.answered = true;
+                letter.guessed = true;
             }
-            return letter.answered;
+
         });
+        if (array.indexOf(userGuess) === -1) {
+            this.guesses--
+        }
+        this.answered = letters.every(function(letter) {
+            return letter.guessed === true;
+          })
+
+
     }
 
     this.display = function () {
         var str = '';
         letters.forEach(function (letter) {
-            str += " " + letter.funky();
+            str += letter.funky() + " ";
         });
-        console.log(str + '    Guesses remaining:' + this.guesses);
+        console.log(str + '    Guesses remaining: ' + this.guesses);
+        if (str === array.join(" ")) {
+            console.log("hello")
+            this.answered = true;
+        }
+
     }
 
 

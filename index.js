@@ -3,15 +3,17 @@ var Word = require("./word.js")
 var Letter = require("./letter.js")
 
 
+console.log("\n"+" WELCOME TO HANGMAN !\n\n")
 
 var choices = ["dog", "cat", "giraffe", "elephant"];
-// var choice;
-// var current;
 
+var current;
+var correct; 
 
 function chooseQuestion() {
     var indexChoice = Math.floor(Math.random() * choices.length)
-    var current = choices[indexChoice];
+    current = choices[indexChoice];
+    correct = current.split("").join(" ")
     var choice = new Word(current);
     choice.display()
     getUserGuess(choice)
@@ -23,27 +25,22 @@ function getUserGuess(choice){
 	inquirer.prompt([{
 					 name: "letter",
 					 message: "Enter a letter: ",
-					//  validate : function(userInput){
-					//  		return userInput
-					// 	}
 					}])
 
 	.then(function(guess){
 		choice.letterInWord(guess.letter);
-		choice.display();
+        choice.display();
 
 		if(!choice.answered){
 			if(choice.guesses > 0){
 				getUserGuess(choice);
 			}else{
-				
-				console.log("\n"+"                   Oops ! You ran out of your guesses !\n\n");
+				console.log("\n"+" You ran out of guesses!\n\n");
 				chooseQuestion();
 			}
 			
 		}else if(choice.answered){
-		
-			console.log("\n"+"                   Congratulations ! You have guessed it !\n\n");
+			console.log("\n"+"  Congrats! You win!\n\n");
 			chooseQuestion();
 		}
 	});
